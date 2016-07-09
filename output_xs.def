@@ -99,7 +99,10 @@ subcode: on_parsecode
         my @post
         push @post, "DEDENT"
         push @post, "}"
-        return $(super:single_block_pre_post)(\@pre, \@post)
+        &call return_newblock, foreach
+            push @src, @pre
+            push @src, "BLOCK"
+            push @src, @post
     $elsif $l=~/^\$foreach\s+\((\w+),\s*(\w+)\)\s+in\s+(hv_\w+)/
         my ($v_name, $v_val, $v_hv)=($1, $2, $3);
         my $tn=$(super:temp_add_var)("tn", "I32");
@@ -117,7 +120,10 @@ subcode: on_parsecode
         push @post, "DEDENT"
         push @post, "}"
         push @post, "PARSE:\$unprotect_var $tn"
-        return $(super:single_block_pre_post)(\@pre, \@post)
+        &call return_newblock, foreach
+            push @src, @pre
+            push @src, "BLOCK"
+            push @src, @post
     $elsif $l=~/^\$getparam\s+(.*)/
         my @vlist=split /,\s+/, $1;
         my $j=0;
