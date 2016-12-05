@@ -67,7 +67,7 @@ subcode: on_dumpout
         $foreach my $l in @xs_globals
             push @$block, $l;
         push @$block, "\n";
-        my $pagename=$$(super:page)->{pagename}
+        my $pagename=$$(super:page)->{_pagename}
         push @$block, "MODULE = $pagename\t\tPACKAGE = $pagename\n";
         push @$block, "\n";
 
