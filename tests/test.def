@@ -1,0 +1,23 @@
+page: test
+    $call @c_main
+    XS_START
+    $call @xs_main
+
+subcode:: c_main
+    $list f
+
+fncode: f(n)
+    $if n<=1
+        return 1
+    $else
+        return n*f(n-1)
+
+#----------------------------------------------- 
+subcode:: xs_main
+    $list test_f
+
+fncode: test_f(hv)
+    $call get_hash, hv, n
+    tn_ret = f(n)
+    $call return_iv, tn_ret
+
