@@ -1,0 +1,15 @@
+page: setup
+    module: perl
+
+    $if !-d "Test"
+        system "h2xs -n Test"
+
+    &call open_w, Test.t
+        print Out "use strict;\n"
+        print Out "use warnings;\n"
+        print Out "use Test::More tests=>2;\n"
+        print Out "BEGIN{ use_ok('Test')};\n"
+        print Out "my \$got = Test::test_f({n=>5});\n"
+        print Out "is(\$got, 120, 'test');\n"
+
+    system "mv -v Test.t Test/t/ "
