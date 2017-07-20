@@ -1,15 +1,16 @@
 page: setup
     module: perl
+    output_dir: .
 
-    $if !-d "Test"
-        system "h2xs -n Test"
+    $if !-d "test"
+        system "h2xs -n test"
 
-    &call open_w, Test.t
+    &call open_w, test.t
         print Out "use strict;\n"
         print Out "use warnings;\n"
         print Out "use Test::More tests=>2;\n"
-        print Out "BEGIN{ use_ok('Test')};\n"
-        print Out "my \$got = Test::test_f({n=>5});\n"
+        print Out "BEGIN{ use_ok('test')};\n"
+        print Out "my \$got = test::test_f({n=>5});\n"
         print Out "is(\$got, 120, 'test');\n"
 
-    system "mv -v Test.t Test/t/ "
+    system "mv -v test.t test/t/ "
